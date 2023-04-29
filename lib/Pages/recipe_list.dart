@@ -16,7 +16,7 @@ class _RecipeListState extends State<RecipeList> {
           "Recipe list",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 24,
+            fontSize: 23,
           ),
         ),
         backgroundColor: Colors.purple[700],
