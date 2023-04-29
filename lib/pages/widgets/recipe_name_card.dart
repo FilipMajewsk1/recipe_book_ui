@@ -51,7 +51,7 @@ class _RecipeListCardState extends State<RecipeListCard> {
                   padding: const EdgeInsets.fromLTRB(10, 3, 20, 0),
                   child: ElevatedButton.icon(
                     onPressed: () {},
-                    icon: Icon(Icons.local_restaurant),
+                    icon: Icon(Icons.remove_red_eye),
                     label: Text('Show'),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.purple[700]),
