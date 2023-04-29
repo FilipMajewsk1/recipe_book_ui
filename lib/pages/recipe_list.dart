@@ -8,6 +8,9 @@ class RecipeList extends StatefulWidget {
 }
 
 class _RecipeListState extends State<RecipeList> {
+
+  String name="recipe";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +39,7 @@ class _RecipeListState extends State<RecipeList> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25,10, 25,0),
-            child: RecipeListCard(),
+            child: RecipeListCard(name: name),
 
             ),
         ],

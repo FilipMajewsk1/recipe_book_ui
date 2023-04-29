@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
 class RecipeListCard extends StatefulWidget {
-  const RecipeListCard({Key? key}) : super(key: key);
+
+  final String name;
+  RecipeListCard({required this.name});
 
   @override
-  State<RecipeListCard> createState() => _RecipeListCardState();
+  State<RecipeListCard> createState() => _RecipeListCardState(name: name);
 }
 
+
 class _RecipeListCardState extends State<RecipeListCard> {
+
+  String name;
+  _RecipeListCardState({required this.name});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -17,11 +24,24 @@ class _RecipeListCardState extends State<RecipeListCard> {
         child: Row(
           children: [
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(15, 0, 5, 0),
-                child: Text(
-                  'Recipe1',
-                  style: TextStyle(fontSize: 16.0),
+              child: Center(
+                child: SizedBox(
+                  width: 150,
+                  height: 60,
+                  child: Card(
+                    color: Colors.purple[700],
+                    child: Center(
+                      child: Text(
+                        widget.name,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
