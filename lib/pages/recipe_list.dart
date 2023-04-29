@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'widgets/recipe_name_card.dart';
 class RecipeList extends StatefulWidget {
   const RecipeList({Key? key}) : super(key: key);
 
@@ -25,13 +25,19 @@ class _RecipeListState extends State<RecipeList> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(25,40, 25,0),
-            child: Container(
-              height: 600,
-              width: 400,
-              color: Colors.purple[700],
-
+            padding: const EdgeInsets.fromLTRB(0, 15, 240,5),
+            child: Text(
+              "Recipe list",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25,10, 25,0),
+            child: RecipeListCard(),
+
             ),
         ],
       ),
