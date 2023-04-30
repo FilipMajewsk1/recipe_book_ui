@@ -17,7 +17,7 @@ class _RecipeIngredientsStepsCardState extends State<RecipeIngredientsStepsCard>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 290,
+      width: 200,
       height: 60,
       child: Card(
         color: Colors.purple[700],
@@ -29,7 +29,6 @@ class _RecipeIngredientsStepsCardState extends State<RecipeIngredientsStepsCard>
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
-            textAlign: TextAlign.center,
           ),
         ),
       ),

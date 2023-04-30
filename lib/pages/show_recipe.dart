@@ -11,12 +11,14 @@ class ShowRecipe extends StatefulWidget {
 
 class _ShowRecipeState extends State<ShowRecipe> {
 
-  Recipe recipe = new Recipe(name: "recipeName", ingresdients:"ing1;ing2;ing3;ing4;ing5;ing6" , steps: "step1;step2;step3;step4;step5");
+  late Recipe recipe;
   late List<String> ing;
   late List<String> stp;
+
   void initState(){
-    ing= recipe.ingresdients.split(";");
-    stp= recipe.steps.split(";");
+    recipe = new Recipe(name: "recipeName", ingresdients:"ing1;ing2;ing3;ing4;ing5;ing6" , steps: "step1;step2;step3;step4;step5");
+    ing = recipe.ingresdients.split(";");
+    stp = recipe.steps.split(";");
     super.initState();
   }
 
@@ -37,13 +39,44 @@ class _ShowRecipeState extends State<ShowRecipe> {
       body: Center(
         child: Column(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 140, 5),
+              child: Text(
+                "Ingredients",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+
+              ),
+            ),
             SizedBox(
-              height: 250,
-              width: 300,
+              height: 270,
+              width: 250,
               child: Scrollbar(
-                thickness: 20,
                 child: ListView(
                   children: ing.map((i) => RecipeIngredientsStepsCard(ingredientOrStep: i)).toList(),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 185, 5),
+              child: Text(
+                "Steps",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+
+              ),
+            ),
+            SizedBox(
+              height: 270,
+              width: 250,
+              child: Scrollbar(
+                child: ListView(
+                  children: stp.map((s) => RecipeIngredientsStepsCard(ingredientOrStep: s)).toList(),
                 ),
               ),
             ),
