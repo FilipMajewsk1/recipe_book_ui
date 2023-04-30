@@ -50,11 +50,14 @@ class _RecipeListCardState extends State<RecipeListCard> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 3, 20, 0),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/show_recipe');
+                    },
                     icon: Icon(Icons.remove_red_eye),
                     label: Text('Show'),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.purple[700]),
+                      minimumSize: MaterialStateProperty.all(Size(100, 25)),
                     ),
                   ),
                 ),
@@ -66,6 +69,7 @@ class _RecipeListCardState extends State<RecipeListCard> {
                     label: Text('Delete'),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.purple[700]),
+                        minimumSize: MaterialStateProperty.all(Size(100, 25)),
                     ),
                   ),
                 ),

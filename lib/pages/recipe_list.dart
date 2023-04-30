@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_book_ui/recipe_data/recipe.dart';
-import 'widgets/recipe_name_card.dart';
+import 'widgets/recipe_list_card.dart';
 class RecipeList extends StatefulWidget {
   const RecipeList({Key? key}) : super(key: key);
 
