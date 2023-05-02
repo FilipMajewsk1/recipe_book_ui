@@ -10,9 +10,12 @@ class AddRecipe extends StatefulWidget {
 
 class _AddRecipeState extends State<AddRecipe> {
 
+  TextEditingController nameController = TextEditingController();
   TextEditingController ingController = TextEditingController();
   TextEditingController stepController = TextEditingController();
-  late String name;
+
+  String labelForNameTextfield = "Enter recipe name";
+  String name = "";
   List<String> ing = [];
   List<String> stp = [];
 
@@ -35,7 +38,52 @@ class _AddRecipeState extends State<AddRecipe> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 140, 5),
+                padding: const EdgeInsets.fromLTRB(0, 15, 245, 5),
+                child: Text(
+                  "Name",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 300,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: nameController,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText:'Enter recipe name',
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10,15,0,0),
+                      child: ElevatedButton.icon(
+                        onPressed: (){
+                          setState(() {
+                            if (nameController.text != "") {
+                              name = nameController.text;
+                            }
+                          });
+                        },
+                        icon: Icon(Icons.check),
+                        label: Text("Enter") ,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.purple[700]),
+                          minimumSize: MaterialStateProperty.all(Size(100, 35)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 15, 190, 5),
                 child: Text(
                   "Ingredients",
                   style: TextStyle(
@@ -46,7 +94,7 @@ class _AddRecipeState extends State<AddRecipe> {
               ),
               SizedBox(
                 height: 150,
-                width: 250,
+                width: 300,
                 child: Scrollbar(
                   child: ListView(
                     children: ing.map((i) => RecipeIngredientsStepsCard(ingredientOrStep: i)).toList(),
@@ -67,12 +115,14 @@ class _AddRecipeState extends State<AddRecipe> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10,20,0,0),
+                      padding: const EdgeInsets.fromLTRB(10,15,0,0),
                       child: ElevatedButton.icon(
                         onPressed: (){
-                          setState(() {
-                            ing.add(ingController.text);
-                          });
+                          if(ingController.text!="") {
+                            setState(() {
+                              ing.add(ingController.text);
+                            });
+                          }
                           ingController.clear();
                         },
                         icon: Icon(Icons.add),
@@ -88,7 +138,7 @@ class _AddRecipeState extends State<AddRecipe> {
               ),
 
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 185, 5),
+                padding: const EdgeInsets.fromLTRB(0, 15, 245, 5),
                 child: Text(
                   "Steps",
                   style: TextStyle(
@@ -99,7 +149,7 @@ class _AddRecipeState extends State<AddRecipe> {
               ),
               SizedBox(
                 height: 150,
-                width: 250,
+                width: 300,
                 child: Scrollbar(
                   child: ListView(
                     children: stp.map((s) => RecipeIngredientsStepsCard(ingredientOrStep: s)).toList(),
@@ -124,9 +174,11 @@ class _AddRecipeState extends State<AddRecipe> {
                       padding: const EdgeInsets.fromLTRB(10,20,0,0),
                       child: ElevatedButton.icon(
                         onPressed: (){
-                          setState(() {
-                            stp.add(stepController.text);
-                          });
+                          if(stepController.text!="") {
+                            setState(() {
+                              stp.add(stepController.text);
+                            });
+                          }
                           stepController.clear();
                         },
                         icon: Icon(Icons.add),
@@ -138,6 +190,27 @@ class _AddRecipeState extends State<AddRecipe> {
                       ),
                     ),
                   ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.add),
+                  label: Text(
+                    "Add recipe",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.purple[700]),
+                    fixedSize: MaterialStateProperty.all(Size(200,50)),
+                  ),
                 ),
               ),
             ],
