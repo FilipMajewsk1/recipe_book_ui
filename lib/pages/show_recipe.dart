@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_book_ui/pages/widgets/recipe_ingredients_steps_card.dart';
 import 'package:recipe_book_ui/recipe_data/recipe.dart';
+import 'package:recipe_book_ui/recipe_data/requests.dart';
 
 class ShowRecipe extends StatefulWidget {
-  const ShowRecipe({Key? key}) : super(key: key);
+  final int id;
+  const ShowRecipe({
+    Key? key,
+    required this.id,
+  }) :super(key : key);
 
 
   @override
@@ -12,28 +17,35 @@ class ShowRecipe extends StatefulWidget {
 
 class _ShowRecipeState extends State<ShowRecipe> {
 
-  late Recipe recipe;
+  late Future<Recipe> futureRecipe;
+  late Recipe recipe ;
   late List<String> ing;
   late List<String> stp;
 
-  void initState(){
-    recipe = new Recipe(name: "recipeName", ingresdients:"ing1;ing2;ing3;ing4;ing5;ing6" , steps: "step1;step2;step3;step4;step5");
-    ing = recipe.ingresdients.split(";");
-    stp = recipe.steps.split(";");
+
+  initState(){
     super.initState();
+    futureRecipe=BaseRecipe.getRecipe(widget.id.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      title: Text(
-      recipe.name,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 24,
-          ),
-        ),
+      title: FutureBuilder<Recipe>(
+        future: futureRecipe,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Text(snapshot.data!.name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ));
+          } else {
+            return Text('');
+          }
+        },
+      ),
         backgroundColor: Colors.purple[700],
         centerTitle: true,
       ),
@@ -55,9 +67,17 @@ class _ShowRecipeState extends State<ShowRecipe> {
               height: 270,
               width: 250,
               child: Scrollbar(
-                child: ListView(
-                  children: ing.map((i) => RecipeIngredientsStepsCard(ingredientOrStep: i)).toList(),
-                ),
+                child: FutureBuilder<Recipe>(
+                  future: futureRecipe,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<String> ing = snapshot.data!.ingredients.split(";");
+                      return (buildList(ing));
+                    }
+                    return (Center(
+                        child:CircularProgressIndicator()));
+                  },
+              ),
               ),
             ),
 
@@ -76,9 +96,20 @@ class _ShowRecipeState extends State<ShowRecipe> {
               height: 270,
               width: 250,
               child: Scrollbar(
-                child: ListView(
-                  children: stp.map((s) => RecipeIngredientsStepsCard(ingredientOrStep: s)).toList(),
+                child:
+                FutureBuilder<Recipe>(
+                  future: futureRecipe,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<String> stp = snapshot.data!.steps.split(";");
+                      return (buildList(stp));
+                    }
+                    return (Center(
+                         child:CircularProgressIndicator()));
+                  },
                 ),
+                // ListView(
+                //   children: ing.map((i) => RecipeIngredientsStepsCard(ingredientOrStep: i)).toList(),),
               ),
             ),
           ],
@@ -86,4 +117,15 @@ class _ShowRecipeState extends State<ShowRecipe> {
       ),
     );
   }
-}
+
+  Widget buildList(List<String> list) =>
+      ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context,index){
+            final l=list[index];
+            return RecipeIngredientsStepsCard(ingredientOrStep: l);
+          }
+      );
+  }
+
+

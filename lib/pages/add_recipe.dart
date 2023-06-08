@@ -95,10 +95,8 @@ class _AddRecipeState extends State<AddRecipe> {
               SizedBox(
                 height: 150,
                 width: 300,
-                child: Scrollbar(
-                  child: ListView(
-                    children: ing.map((i) => RecipeIngredientsStepsCard(ingredientOrStep: i)).toList(),
-                  ),
+                child: ListView(
+                  children: ing.map((i) => RecipeIngredientsStepsCard(ingredientOrStep: i)).toList(),
                 ),
               ),
               SizedBox(
@@ -150,10 +148,8 @@ class _AddRecipeState extends State<AddRecipe> {
               SizedBox(
                 height: 150,
                 width: 300,
-                child: Scrollbar(
-                  child: ListView(
-                    children: stp.map((s) => RecipeIngredientsStepsCard(ingredientOrStep: s)).toList(),
-                  ),
+                child: ListView(
+                  children: stp.map((s) => RecipeIngredientsStepsCard(ingredientOrStep: s)).toList(),
                 ),
               ),
 

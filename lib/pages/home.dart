@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book_ui/recipe_data/requests.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class _HomeState extends State<Home> {
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: ElevatedButton.icon(
-                onPressed: () {
+                onPressed: ()async {
                   Navigator.pushNamed(context, '/recipe_list');
                 },
                 icon: Icon(Icons.list),

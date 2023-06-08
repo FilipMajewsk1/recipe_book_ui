@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_book_ui/recipe_data/recipe.dart';
+import 'package:recipe_book_ui/recipe_data/requests.dart';
 import 'widgets/recipe_list_card.dart';
 class RecipeList extends StatefulWidget {
   const RecipeList({Key? key}) : super(key: key);
@@ -10,23 +11,7 @@ class RecipeList extends StatefulWidget {
 
 class _RecipeListState extends State<RecipeList> {
 
-  List<Recipe> recipes = [
-    Recipe(name: "recipe1", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe2", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe3", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe4", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe5", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe6", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe7", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe8", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe9", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe10", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe11", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe12", ingresdients: "ingresdients", steps: "steps"),
-    Recipe(name: "recipe13", ingresdients: "ingresdients", steps: "steps")
-  ];
-
-
+  Future<List<Recipe>> recipes = BaseRecipe.getList("recipe");
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +31,33 @@ class _RecipeListState extends State<RecipeList> {
         child: SizedBox(
           width: 350,
           height: 650,
-          child: Scrollbar(
-            thickness: 20,
-            child: ListView(
-              children: recipes.map( (recipe) => RecipeListCard(name: recipe.name)).toList(),
-            ),
+          child: FutureBuilder<List<Recipe>>(
+              future: recipes,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final recipee = snapshot.data!;
+                  return buildRecipes(recipee);
+                }
+                else {
+                  return SizedBox(
+                    width: 20,
+                    height: 20,
+                  );
+                }
+              }
           ),
         ),
       ),
     );
   }
+
+  Widget buildRecipes(List<Recipe> recipes) =>
+      ListView.builder(
+          itemCount: recipes.length,
+          itemBuilder: (context,index){
+            final recipe=recipes[index];
+            return RecipeListCard(name: recipe.name, id: recipe.id);
+          }
+      );
 }
+

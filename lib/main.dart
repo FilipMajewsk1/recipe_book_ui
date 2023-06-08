@@ -10,6 +10,6 @@ void main() => runApp(MaterialApp(
     '/home': (context) => Home(),
     '/recipe_list': (context) => RecipeList(),
     '/add_recipe': (context) => AddRecipe(),
-    '/show_recipe': (context) => ShowRecipe(),
+    // '/show_recipe': (context) => ShowRecipe(),
   },
 ));
