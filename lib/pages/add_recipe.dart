@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_book_ui/pages/widgets/recipe_ingredients_steps_card.dart';
+import 'package:recipe_book_ui/recipe_data/requests.dart';
 
 class AddRecipe extends StatefulWidget {
   const AddRecipe({Key? key}) : super(key: key);
@@ -16,6 +17,8 @@ class _AddRecipeState extends State<AddRecipe> {
 
   String labelForNameTextfield = "Enter recipe name";
   String name = "";
+  String ingredients="";
+  String steps="";
   List<String> ing = [];
   List<String> stp = [];
 
@@ -193,7 +196,15 @@ class _AddRecipeState extends State<AddRecipe> {
                 padding: const EdgeInsets.all(15.0),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.pop(context);
+                    if (nameController.text != "") {
+                      name = nameController.text;
+                    }
+                    if(name!="") {
+                      ingredients = convertList(ing);
+                      steps = convertList(stp);
+                      BaseRecipe.addRecipe(name, steps, ingredients);
+                      Navigator.pop(context);
+                    }
                   },
                   icon: Icon(Icons.add),
                   label: Text(
@@ -214,5 +225,15 @@ class _AddRecipeState extends State<AddRecipe> {
         ),
       ),
     );
+  }
+  String convertList(List<String> listToConvert){
+    String returnedString = "";
+    for(int i = 0;i<listToConvert.length;i++){
+      returnedString+=listToConvert[i];
+      if(i<listToConvert.length-1){
+        returnedString+=";";
+      }
+    }
+    return returnedString;
   }
 }

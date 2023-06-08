@@ -22,9 +22,27 @@ class BaseRecipe{
     final recipe = Recipe.fromJson(jsonDecode(response.body));
     return recipe;
   }
-  Future<dynamic> putRecipe(String api)async{
 
+  static Future<bool> addRecipe(String name, String ingredients, String steps) async {
+    final response = await http.post(
+      Uri.parse(baseURL+"recipe/add"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'name': name,
+        'ingredients': ingredients,
+        'steps': steps
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Failed to create recipe.');
+    }
   }
+
   static Future<bool> deleteRecipe(String id) async {
     var url=Uri.parse(baseURL+"recipe/delete/"+id);
     final response = await http.delete(url);

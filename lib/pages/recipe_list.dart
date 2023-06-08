@@ -39,10 +39,8 @@ class _RecipeListState extends State<RecipeList> {
                   return buildRecipes(recipee);
                 }
                 else {
-                  return SizedBox(
-                    width: 20,
-                    height: 20,
-                  );
+                  return (Center(
+                      child:CircularProgressIndicator()));
                 }
               }
           ),
