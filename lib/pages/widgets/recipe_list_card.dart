@@ -24,7 +24,7 @@ class _RecipeListCardState extends State<RecipeListCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: 350,
       height: 110,
       child: Card(
         child: Row(
@@ -32,7 +32,7 @@ class _RecipeListCardState extends State<RecipeListCard> {
             Expanded(
               child: Center(
                 child: SizedBox(
-                  width: 150,
+                  width: 200,
                   height: 60,
                   child: Card(
                     color: Colors.purple[700],

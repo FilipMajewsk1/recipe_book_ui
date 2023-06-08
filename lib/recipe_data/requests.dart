@@ -4,15 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:recipe_book_ui/recipe_data/recipe.dart';
 
 const String baseURL ="http://10.147.20.177:8080/api/v1/";
-//TODO zrób resztę metod
 class BaseRecipe{
   static Future<List<Recipe>> getList(String api)async{
 
     var url=Uri.parse(baseURL+api);
-    final response = await http.get(url,
-      headers: <String,String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },);
+    final response = await http.get(url);
     final bodyByte = utf8.decode(response.bodyBytes);
     final body  = json.decode(bodyByte);
     return body.map<Recipe>(Recipe.fromJson).toList();
@@ -20,10 +16,7 @@ class BaseRecipe{
 
   static Future<Recipe> getRecipe(String id)async{
     var url=Uri.parse(baseURL+"recipe/get/"+id);
-    final response = await http.get(url,
-      headers: <String,String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },);
+    final response = await http.get(url);
     final bodyByte = utf8.decode(response.bodyBytes);
     final body  = json.decode(bodyByte);
     final recipe = Recipe.fromJson(body);

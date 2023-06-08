@@ -53,7 +53,7 @@ class _ShowRecipeState extends State<ShowRecipe> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 140, 5),
+              padding: const EdgeInsets.fromLTRB(0, 20, 186, 5),
               child: Text(
                 "Ingredients",
                 style: TextStyle(
@@ -65,7 +65,7 @@ class _ShowRecipeState extends State<ShowRecipe> {
             ),
             SizedBox(
               height: 270,
-              width: 250,
+              width: 300,
               child: Scrollbar(
                 child: FutureBuilder<Recipe>(
                   future: futureRecipe,
@@ -82,7 +82,7 @@ class _ShowRecipeState extends State<ShowRecipe> {
             ),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 185, 5),
+              padding: const EdgeInsets.fromLTRB(0, 20, 230, 5),
               child: Text(
                 "Steps",
                 style: TextStyle(
@@ -94,7 +94,7 @@ class _ShowRecipeState extends State<ShowRecipe> {
             ),
             SizedBox(
               height: 270,
-              width: 250,
+              width: 300,
               child: Scrollbar(
                 child:
                 FutureBuilder<Recipe>(
